@@ -15,7 +15,7 @@
           let
             path =
               lib.cleanSourceWith {
-                name = builtins.baseNameOf pathString;
+                name = if pathString == "." then cargoToml.package.name else builtins.baseNameOf pathString; # "." maps to root package
                 src = "${src}/${pathString}";
                 # TODO(DRY): Consolidate with that of flake-module.nix
                 filter = path: type:
