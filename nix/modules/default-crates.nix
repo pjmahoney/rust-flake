@@ -23,8 +23,8 @@
                   (config.rust-project.crane-lib.filterCargoSources path type);
               };
             cargoPath = "${path}/Cargo.toml";
-            cargoToml = builtins.fromTOML (builtins.readFile cargoPath);
-            name = cargoToml.package.name;
+            # cargoToml = if pathString == "." then null else ;
+            name = if pathString == "." then cargoToml.package.name else (builtins.fromTOML (builtins.readFile cargoPath)).package.name;
             crateNixFilePath =
               if config.rust-project.crateNixFile == null
               then null
